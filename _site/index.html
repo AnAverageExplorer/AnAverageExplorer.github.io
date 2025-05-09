@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>An Average Explorer</title>
+
+  <!-- Fonts and libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <link rel="preload" as="image" href="/assets/images/gallery_light/IMG_6569-4-2.jpeg">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #111;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      background-color: white;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+
+    .navbar h1 {
+      font-size: 22px;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .navbar h1 a {
+      color: #111;
+      text-decoration: none;
+    }
+
+    .navbar a {
+      color: #333;
+      text-decoration: none;
+      margin-left: 15px;
+      position: relative;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background-color: #111;
+      transition: width 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #000;
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+    }
+
+    .hero-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+    }
+
+    .hero-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.65);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.6), transparent);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 60px;
+      transform: translateY(-50%);
+      max-width: 600px;
+      color: white;
+      text-align: left;
+      z-index: 2;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 1rem;
+      background: white;
+      color: #111;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .cta:hover {
+      background: #111;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .gallery-wrapper {
+      max-width: 2000px;
+      margin: auto;
+      padding: 10px 10px;
+    }
+
+    .grid {
+      display: block;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .grid-sizer,
+    .grid-item {
+      width: 25%;
+    }
+
+    .grid-item {
+      margin-bottom: 5px;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .grid-item:hover img {
+      transform: scale(1.02);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    @media (max-width: 1200px) {
+
+      .grid-sizer,
+      .grid-item {
+        width: 50%;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .grid-sizer,
+      .grid-item {
+        width: 100%;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px 20px;
+      }
+
+      .hero-text {
+        left: 20px;
+        right: 20px;
+        transform: translateY(-50%);
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <h1><a href="/">An Average Explorer</a></h1>
+    <div>
+      <a href="#">Projects</a>
+      <a href="#">Blog</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+
+  <section class="hero-container">
+    <img src="/assets/images/gallery_light/IMG_6569-4-2.jpeg" alt="Hero image" loading="eager" decoding="async">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <p>Hi, my name is Anthony, a digital imaging engineer, currently pursuing a PhD in urban street lighting,<br>
+        but in my spare time, I'm just <strong>An Average Explorer</strong>, amateur photographer.</p>
+      <a href="#gallery" class="cta">Explore My Photos ↓</a>
+    </div>
+  </section>
+
+  <div id="gallery" class="gallery-wrapper">
+    <div class="grid">
+      <div class="grid-sizer"></div>
+      <div class="grid">
+  <div class="grid-sizer"></div>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_2321.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_2321.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_2429.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_2429.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_3823-topaz-denoise.png" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_3823-topaz-denoise.png" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_5474-2-topaz-denoise-sharpen.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_5474-2-topaz-denoise-sharpen.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_5641.jpg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_5641.jpg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_5656.jpg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_5656.jpg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_5801.jpg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_5801.jpg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_5827.jpg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_5827.jpg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_5840.jpg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_5840.jpg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_5892.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_5892.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6080.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6080.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6110.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6110.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6136-4.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6136-4.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6146.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6146.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6182.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6182.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6187.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6187.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6245.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6245.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6265.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6265.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6274.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6274.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6312.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6312.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6330.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6330.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6332.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6332.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6398.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6398.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6449.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6449.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6467.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6467.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+    
+      
+      <div class="grid-item">
+        <a href="/assets/images/gallery/IMG_6569-4-2.jpeg" class="glightbox" data-gallery="gallery">
+          <img src="/assets/images/gallery_light/IMG_6569-4-2.jpeg" alt="" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    
+  
+</div>
+
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      GLightbox({ selector: '.glightbox' });
+
+      const grid = document.querySelector('.grid');
+      imagesLoaded(grid, function () {
+        new Masonry(grid, {
+          itemSelector: '.grid-item',
+          columnWidth: '.grid-sizer',
+          percentPosition: true,
+          gutter: 0
+        });
+      });
+    });
+
+    if (window.location.hash === "#gallery") {
+      window.scrollTo(0, 0);
+      history.replaceState(null, null, " ");
+    }
+  </script>
+</body>
+
+</html>
