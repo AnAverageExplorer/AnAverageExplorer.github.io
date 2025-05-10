@@ -25,58 +25,6 @@
       color: #111;
     }
 
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 30px;
-      background-color: white;
-      border-bottom: 1px solid #eee;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-
-    .navbar h1 {
-      font-size: 22px;
-      font-weight: 500;
-      margin: 0;
-    }
-
-    .navbar h1 a {
-      color: #111;
-      text-decoration: none;
-    }
-
-    .navbar a {
-      color: #333;
-      text-decoration: none;
-      margin-left: 15px;
-      position: relative;
-      transition: color 0.2s ease;
-      cursor: pointer;
-    }
-
-    .navbar a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -2px;
-      width: 0%;
-      height: 2px;
-      background-color: #111;
-      transition: width 0.3s ease;
-    }
-
-    .navbar a:hover {
-      color: #000;
-    }
-
-    .navbar a:hover::after {
-      width: 100%;
-    }
-
     .hero-container {
       position: relative;
       width: 100%;
@@ -203,19 +151,54 @@
         text-align: left;
       }
     }
+
+    .hover-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hover-card .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hover-card:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay-text {
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .overlay-text h2 {
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .overlay-text p {
+      font-size: 0.9rem;
+      margin: 5px 0 0;
+      font-weight: 300;
+      opacity: 0.85;
+    }
   </style>
 </head>
 
 <body>
-  <div class="navbar">
-    <h1><a href="/">An Average Explorer</a></h1>
-    <div>
-      <a href="#">Projects</a>
-      <a href="#">Blog</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </div>
-  </div>
+  {% include navbar.html %}
+
 
   <section class="hero-container">
     <img src="/assets/images/gallery_light/IMG_6569-4-2.jpeg" alt="Hero image" loading="eager" decoding="async">

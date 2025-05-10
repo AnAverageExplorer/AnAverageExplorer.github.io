@@ -5,3 +5,11 @@ url: ""
 include:
   - assets
 
+collections:
+  image_info:
+    output: true
+  projects:
+    output: true
+  incluess:
+    output: true
+
