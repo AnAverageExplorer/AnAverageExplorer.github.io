@@ -12,7 +12,37 @@ info_dir = base_dir / "_image_info"
 light_dir.mkdir(parents=True, exist_ok=True)
 info_dir.mkdir(parents=True, exist_ok=True)
 
-template = '''---
+def get_aspect_ratio(path):
+    try:
+        with Image.open(path) as img:
+            width, height = img.size
+            return round(width / height, 3)
+    except Exception as e:
+        print(f"Error reading {path.name}: {e}")
+        return None
+
+def update_md_file(md_path, ratio_value, filename, title):
+    ratio_line = f"ratio: {ratio_value}"
+    if md_path.exists():
+        with open(md_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+
+        if any("ratio:" in line for line in lines):
+            # Update existing ratio
+            lines = [ratio_line + "\n" if line.startswith("ratio:") else line for line in lines]
+        else:
+            # Insert ratio before closing ---
+            for i, line in enumerate(lines):
+                if line.strip() == "---" and i != 0:
+                    lines.insert(i, ratio_line + "\n")
+                    break
+
+        with open(md_path, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+            print(f"Updated ratio in: {md_path.name}")
+    else:
+        # Create new .md with ratio
+        template = f'''---
 filename: "{filename}"
 title: "{title}"
 description:
@@ -20,8 +50,12 @@ tags:
 
 project: null
 display: true
+{ratio_line}
 ---
 '''
+        with open(md_path, "w", encoding="utf-8") as f:
+            f.write(template)
+            print(f"Created metadata: {md_path.name}")
 
 # Process images
 for image_file in gallery_dir.iterdir():
@@ -31,7 +65,7 @@ for image_file in gallery_dir.iterdir():
         light_path = light_dir / webp_filename
         md_path = info_dir / f"{image_file.stem}.md"
 
-        # Create resized .webp image only if not present or source is newer
+        # Create resized .webp image only if not present or outdated
         if not light_path.exists() or os.path.getmtime(image_file) > os.path.getmtime(light_path):
             try:
                 with Image.open(image_file) as img:
@@ -41,10 +75,8 @@ for image_file in gallery_dir.iterdir():
             except Exception as e:
                 print(f"Image failed: {filename} — {e}")
 
-        # Create .md metadata file if not present
-        if not md_path.exists():
+        # Calculate aspect ratio and update/create .md
+        ratio = get_aspect_ratio(image_file)
+        if ratio:
             title = image_file.stem.replace('_', ' ').title()
-            with open(md_path, "w", encoding="utf-8") as f:
-                f.write(template.format(filename=filename, title=title))
-                print(f"Created metadata: {md_path.name}")
-
+            update_md_file(md_path, ratio, filename, title)

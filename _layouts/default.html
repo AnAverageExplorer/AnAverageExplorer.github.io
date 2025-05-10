@@ -219,28 +219,22 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      GLightbox({ selector: '.glightbox' });
-
       const grid = document.querySelector('.grid');
-      const msnry = new Masonry(grid, {
+      const masonry = new Masonry(grid, {
         itemSelector: '.grid-item',
         columnWidth: '.grid-sizer',
         percentPosition: true,
         gutter: 0
       });
 
-      imagesLoaded(grid).on('progress', function () {
-        msnry.layout();  // ensure re-layout on each image load
+      imagesLoaded(grid).on('progress', () => {
+        masonry.layout();
       });
 
-
+      GLightbox({ selector: '.glightbox' });
     });
-
-    if (window.location.hash === "#gallery") {
-      window.scrollTo(0, 0);
-      history.replaceState(null, null, " ");
-    }
   </script>
+
 </body>
 
 </html>
