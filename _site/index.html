@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
   <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-  <link rel="preload" as="image" href="/assets/images/gallery_light/IMG_6569-4-2.jpeg">
+  <link rel="preload" as="image" href="/assets/images/gallery_light/IMG_6569-4-2.webp">
 
   <style>
     html {
@@ -201,7 +201,7 @@
     <h1><a href="/">An Average Explorer</a></h1>
     <div>
         <a href="#">Projects</a>
-        <a href="#">Blog</a>
+        <a href="#">Gallery</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
     </div>
@@ -271,7 +271,7 @@
 
 
   <section class="hero-container">
-    <img src="/assets/images/gallery_light/IMG_6569-4-2.jpeg" alt="Hero image" loading="eager" decoding="async">
+    <img src="/assets/images/gallery_light/IMG_6569-4-2.webp" alt="Hero image" loading="eager" decoding="async">
     <div class="hero-overlay"></div>
     <div class="hero-text">
       <p>Hi, my name is Anthony, a digital imaging engineer, currently pursuing a PhD in urban street lighting,<br>
@@ -307,23 +307,22 @@
     opacity: 1;
   }
 
-.hover-filter {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.25);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-  pointer-events: none;
-}
+  .hover-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
 
-.grid-item:hover .hover-filter {
-  opacity: 1;
-}
-
+  .grid-item:hover .hover-filter {
+    opacity: 1;
+  }
 
   .grid-item:hover::before {
     opacity: 1;
@@ -339,61 +338,113 @@
 <div class="grid">
   <div class="grid-sizer"></div>
 
-  
-    
-  
-    
-      
-      
 
-<div class="grid-item">
   
-    
-    
-    <a href="/projects/a-descend-into-darkness/" style="position: relative; display: block;">
-      <img src="/assets/images/gallery_light/IMG_2324.jpeg" alt="Img_2324" loading="lazy" decoding="async" />
-      <span class="hover-filter"></span>
-      <div class="grid-overlay">
-        <strong>A Descend into Darkness</strong>
-        portrait
-      </div>
-    </a>
-  
-</div>
 
-    
   
     
-  
     
-  
     
+
+    <div class="grid-item">
       
+        
+        
+        <a href="/projects/a-descend-into-darkness/" style="position: relative; display: block;">
+          <picture>
+            <source srcset="/assets/images/gallery_light/IMG_2324.webp" type="image/webp" />
+            <img src="" alt="Img_2324" loading="lazy" decoding="async" />
+          </picture>
+          <span class="hover-filter"></span>
+          <div class="grid-overlay">
+            <strong>A Descend into Darkness</strong>
+            portrait
+          </div>
+        </a>
       
+    </div>
+  
 
-<div class="grid-item">
   
-    
-    
-    <a href="/projects/too-grown-to-play/" style="position: relative; display: block;">
-      <img src="/assets/images/gallery_light/IMG_5801.jpg" alt="Img_5801" loading="lazy" decoding="async" />
-      <span class="hover-filter"></span>
-      <div class="grid-overlay">
-        <strong>Too Grown to Play</strong>
-        portrait
-      </div>
-    </a>
-  
-</div>
 
-    
+  
+
+  
+
   
     
+    
+    
+
+    <div class="grid-item">
+      
+        
+        
+        <a href="/projects/a-day-at-the-skatepark/" style="position: relative; display: block;">
+          <picture>
+            <source srcset="/assets/images/gallery_light/IMG_5656.webp" type="image/webp" />
+            <img src="" alt="Img 5656" loading="lazy" decoding="async" />
+          </picture>
+          <span class="hover-filter"></span>
+          <div class="grid-overlay">
+            <strong>A Day at the Skatepark</strong>
+            
+          </div>
+        </a>
+      
+    </div>
+  
+
+  
+
   
     
+    
+    
+
+    <div class="grid-item">
+      
+        
+        
+        <a href="/projects/too-grown-to-play/" style="position: relative; display: block;">
+          <picture>
+            <source srcset="/assets/images/gallery_light/IMG_5801.webp" type="image/webp" />
+            <img src="" alt="Img_5801" loading="lazy" decoding="async" />
+          </picture>
+          <span class="hover-filter"></span>
+          <div class="grid-overlay">
+            <strong>Too Grown to Play</strong>
+            portrait
+          </div>
+        </a>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
   
     
+    
+    
+
+    <div class="grid-item">
+      
+        <a href="/assets/images/gallery/IMG_6569-4-2.jpeg" class="glightbox" data-gallery="gallery">
+          <picture>
+            <source srcset="/assets/images/gallery_light/IMG_6569-4-2.webp" type="image/webp" />
+            <img src="" alt="Img 6569-4-2" loading="lazy" decoding="async" />
+          </picture>
+        </a>
+      
+    </div>
   
+
+
 </div>
 
     </div>
@@ -404,14 +455,18 @@
       GLightbox({ selector: '.glightbox' });
 
       const grid = document.querySelector('.grid');
-      imagesLoaded(grid, function () {
-        new Masonry(grid, {
-          itemSelector: '.grid-item',
-          columnWidth: '.grid-sizer',
-          percentPosition: true,
-          gutter: 0
-        });
+      const msnry = new Masonry(grid, {
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true,
+        gutter: 0
       });
+
+      imagesLoaded(grid).on('progress', function () {
+        msnry.layout();  // ensure re-layout on each image load
+      });
+
+
     });
 
     if (window.location.hash === "#gallery") {

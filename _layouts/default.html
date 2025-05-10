@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
   <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-  <link rel="preload" as="image" href="/assets/images/gallery_light/IMG_6569-4-2.jpeg">
+  <link rel="preload" as="image" href="/assets/images/gallery_light/IMG_6569-4-2.webp">
 
   <style>
     html {
@@ -201,7 +201,7 @@
 
 
   <section class="hero-container">
-    <img src="/assets/images/gallery_light/IMG_6569-4-2.jpeg" alt="Hero image" loading="eager" decoding="async">
+    <img src="/assets/images/gallery_light/IMG_6569-4-2.webp" alt="Hero image" loading="eager" decoding="async">
     <div class="hero-overlay"></div>
     <div class="hero-text">
       <p>Hi, my name is Anthony, a digital imaging engineer, currently pursuing a PhD in urban street lighting,<br>
@@ -222,14 +222,18 @@
       GLightbox({ selector: '.glightbox' });
 
       const grid = document.querySelector('.grid');
-      imagesLoaded(grid, function () {
-        new Masonry(grid, {
-          itemSelector: '.grid-item',
-          columnWidth: '.grid-sizer',
-          percentPosition: true,
-          gutter: 0
-        });
+      const msnry = new Masonry(grid, {
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true,
+        gutter: 0
       });
+
+      imagesLoaded(grid).on('progress', function () {
+        msnry.layout();  // ensure re-layout on each image load
+      });
+
+
     });
 
     if (window.location.hash === "#gallery") {

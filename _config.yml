@@ -10,6 +10,5 @@ collections:
     output: true
   projects:
     output: true
-  incluess:
-    output: true
-
+  includes:
+   output: true

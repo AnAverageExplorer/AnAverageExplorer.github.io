@@ -99,13 +99,11 @@
 </head>
 
 <body>
-
-    <body>
-        <div class="navbar">
+    <div class="navbar">
     <h1><a href="/">An Average Explorer</a></h1>
     <div>
         <a href="#">Projects</a>
-        <a href="#">Blog</a>
+        <a href="#">Gallery</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
     </div>
@@ -173,88 +171,100 @@
     }
 </style>
 
-        <section class="project-header">
-            <h1>A Descend into Darkness</h1>
-            
-            <p>A candlelit portrait series blending narrative and mood.</p>
-            
-        </section>
+    <section class="project-header">
+        <h1>A Descend into Darkness</h1>
+        
+        <p>A candlelit portrait series blending narrative and mood.</p>
+        
+    </section>
 
-        <div class="gallery-wrapper">
-            <div class="grid">
-                <div class="grid-sizer"></div>
-                
-                
-                
-                
-                
-                <div class="grid-item">
-                    <a href="/assets/images/gallery/IMG_2321.jpeg" class="glightbox" data-gallery="project">
-                        <img src="/assets/images/gallery_light/IMG_2321.jpeg" alt="Img_2321" loading="lazy"
-                            decoding="async">
-                    </a>
-                </div>
-                
-                
-                
-                
-                
-                <div class="grid-item">
-                    <a href="/assets/images/gallery/IMG_2324.jpeg" class="glightbox" data-gallery="project">
-                        <img src="/assets/images/gallery_light/IMG_2324.jpeg" alt="Img_2324" loading="lazy"
-                            decoding="async">
-                    </a>
-                </div>
-                
-                
-                
-                
-                
-                <div class="grid-item">
-                    <a href="/assets/images/gallery/IMG_2349.jpeg" class="glightbox" data-gallery="project">
-                        <img src="/assets/images/gallery_light/IMG_2349.jpeg" alt="Img_2349" loading="lazy"
-                            decoding="async">
-                    </a>
-                </div>
-                
-                
-                
-                
-                
-                <div class="grid-item">
-                    <a href="/assets/images/gallery/IMG_2429.jpeg" class="glightbox" data-gallery="project">
-                        <img src="/assets/images/gallery_light/IMG_2429.jpeg" alt="Img_2429" loading="lazy"
-                            decoding="async">
-                    </a>
-                </div>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+    <div class="gallery-wrapper">
+        <div class="grid">
+            <div class="grid-sizer"></div>
+            
+            
+            
+            
+            
+            
+            <div class="grid-item">
+                <a href="/assets/images/gallery/IMG_2321.jpeg" class="glightbox" data-gallery="project">
+                    <img src="/assets/images/gallery_light/IMG_2321.webp" alt="Img_2321" loading="lazy"
+                        decoding="async">
+                </a>
             </div>
+            
+            
+            
+            
+            
+            
+            <div class="grid-item">
+                <a href="/assets/images/gallery/IMG_2324.jpeg" class="glightbox" data-gallery="project">
+                    <img src="/assets/images/gallery_light/IMG_2324.webp" alt="Img_2324" loading="lazy"
+                        decoding="async">
+                </a>
+            </div>
+            
+            
+            
+            
+            
+            
+            <div class="grid-item">
+                <a href="/assets/images/gallery/IMG_2349.jpeg" class="glightbox" data-gallery="project">
+                    <img src="/assets/images/gallery_light/IMG_2349.webp" alt="Img_2349" loading="lazy"
+                        decoding="async">
+                </a>
+            </div>
+            
+            
+            
+            
+            
+            
+            <div class="grid-item">
+                <a href="/assets/images/gallery/IMG_2429.jpeg" class="glightbox" data-gallery="project">
+                    <img src="/assets/images/gallery_light/IMG_2429.webp" alt="Img_2429" loading="lazy"
+                        decoding="async">
+                </a>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         </div>
+    </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                GLightbox({ selector: '.glightbox' });
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            GLightbox({ selector: '.glightbox' });
 
-                const grid = document.querySelector('.grid');
-                imagesLoaded(grid, function () {
-                    new Masonry(grid, {
-                        itemSelector: '.grid-item',
-                        columnWidth: '.grid-sizer',
-                        percentPosition: true,
-                        gutter: 0
-                    });
+            const grid = document.querySelector('.grid');
+            imagesLoaded(grid, function () {
+                new Masonry(grid, {
+                    itemSelector: '.grid-item',
+                    columnWidth: '.grid-sizer',
+                    percentPosition: true,
+                    gutter: 0
                 });
             });
-        </script>
-    </body>
+        });
+    </script>
+</body>
 
 </html>
