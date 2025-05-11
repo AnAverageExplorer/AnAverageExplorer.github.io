@@ -282,13 +282,13 @@
 
     <script>
         let msnry;
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const toggleBtn = document.getElementById('sidebar-toggle');
             const isCollapsed = sidebar.classList.toggle('collapsed');
 
             toggleBtn.textContent = isCollapsed ? '☰ Show Filter' : '☰ Hide Filter';
-
             document.body.classList.toggle('sidebar-visible', !isCollapsed);
 
             setTimeout(() => {
@@ -296,12 +296,39 @@
             }, 350);
         }
 
+        function updateURLFromFilters(activeTags) {
+            const params = new URLSearchParams(window.location.search);
+            if (activeTags.length > 0) {
+                params.set('tags', activeTags.join(','));
+            } else {
+                params.delete('tags');
+            }
+            const newUrl = window.location.pathname + '?' + params.toString();
+            history.replaceState(null, '', newUrl);
+        }
 
+        function applyTagFilter(activeTags) {
+            document.querySelectorAll(".grid-item").forEach(item => {
+                const tags = item.dataset.tags.toLowerCase().split(" ");
+                const show = activeTags.length === 0 || activeTags.every(tag => tags.includes(tag));
+                item.style.display = show ? "block" : "none";
+            });
+            msnry.layout();
+        }
 
+        function syncFiltersWithURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tagParam = urlParams.get('tags');
+            const activeTags = tagParam ? tagParam.toLowerCase().split(',') : [];
 
+            // Set checkboxes based on URL
+            const checkboxes = document.querySelectorAll('#tag-filter input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                cb.checked = activeTags.includes(cb.value.toLowerCase());
+            });
 
-
-
+            applyTagFilter(activeTags);
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
             const grid = document.querySelector(".grid");
@@ -312,9 +339,7 @@
                 gutter: 0
             });
 
-
             imagesLoaded(grid).on("progress", () => msnry.layout());
-
             GLightbox({ selector: ".glightbox" });
 
             const checkboxes = document.querySelectorAll('#tag-filter input[type="checkbox"]');
@@ -324,15 +349,13 @@
                         .filter(cb => cb.checked)
                         .map(cb => cb.value.toLowerCase());
 
-                    document.querySelectorAll(".grid-item").forEach(item => {
-                        const tags = item.dataset.tags.toLowerCase().split(" ");
-                        const show = activeTags.length === 0 || activeTags.every(tag => tags.includes(tag));
-                        item.style.display = show ? "block" : "none";
-                    });
-
-                    msnry.layout();
+                    updateURLFromFilters(activeTags);
+                    applyTagFilter(activeTags);
                 })
             );
+
+            // On load: sync filters from URL
+            syncFiltersWithURL();
         });
     </script>
 </body>
