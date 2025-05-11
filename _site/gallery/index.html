@@ -290,6 +290,8 @@
         <!-- Sidebar -->
         <aside class="sidebar collapsed" id="sidebar">
             <h3>Filter by Tag</h3>
+            <button type="button" id="clear-filters">Clear Filters</button>
+
             <form id="tag-filter">
                 
                 
@@ -653,7 +655,16 @@
             // On load: sync filters from URL
             syncFiltersWithURL();
         });
+
+        document.getElementById('clear-filters').addEventListener('click', () => {
+            document.querySelectorAll('#tag-filter input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.grid-item').forEach(item => item.style.display = 'block');
+            msnry.layout();
+        });
+
     </script>
+
+
 </body>
 
 </html>
