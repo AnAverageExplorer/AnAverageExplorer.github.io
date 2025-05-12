@@ -23,39 +23,55 @@ def get_aspect_ratio(path):
 
 def update_md_file(md_path, ratio_value, filename, title):
     ratio_line = f"ratio: {ratio_value}"
+    tags_fr_line = "tags_fr:\n"
+
     if md_path.exists():
         with open(md_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
-        if any("ratio:" in line for line in lines):
-            # Update existing ratio
-            lines = [ratio_line + "\n" if line.startswith("ratio:") else line for line in lines]
-        else:
-            # Insert ratio before closing ---
+        # Update or insert ratio
+        found_ratio = False
+        for idx, line in enumerate(lines):
+            if line.strip().startswith("ratio:"):
+                lines[idx] = ratio_line + "\n"
+                found_ratio = True
+                break
+        if not found_ratio:
             for i, line in enumerate(lines):
                 if line.strip() == "---" and i != 0:
                     lines.insert(i, ratio_line + "\n")
                     break
 
+        # Insert tags_fr if missing
+        if not any("tags_fr:" in line for line in lines):
+            for i, line in enumerate(lines):
+                if line.strip().startswith("tags:"):
+                    insert_idx = i + 1
+                    while insert_idx < len(lines) and lines[insert_idx].startswith("  - "):
+                        insert_idx += 1
+                    lines.insert(insert_idx, tags_fr_line)
+                    break
+
         with open(md_path, "w", encoding="utf-8") as f:
             f.writelines(lines)
-            print(f"Updated ratio in: {md_path.name}")
+        print(f"Updated metadata: {md_path.name}")
+
     else:
-        # Create new .md with ratio
-        template = f'''---
+        content = f"""---
 filename: "{filename}"
 title: "{title}"
 description:
 tags:
+tags_fr:
 
 project: null
 display: true
 {ratio_line}
----
-'''
+---\n"""
         with open(md_path, "w", encoding="utf-8") as f:
-            f.write(template)
-            print(f"Created metadata: {md_path.name}")
+            f.write(content)
+        print(f"Created metadata: {md_path.name}")
+
 
 # Process images
 for image_file in gallery_dir.iterdir():
