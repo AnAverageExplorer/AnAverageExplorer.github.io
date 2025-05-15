@@ -1,0 +1,32 @@
+<!-- _layouts/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% if page.title %}{{ page.title }} – {% endif %}An Average Explorer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+
+    <!-- JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
+
+    {% if page.custom_css %}
+    <link rel="stylesheet" href="{{ page.custom_css }}">{% endif %}
+    {% if page.custom_js %}
+    <script src="{{ page.custom_js }}" defer></script>{% endif %}
+</head>
+
+<body>
+    {% include navbar.html %}
+    {{ content }}
+</body>
+
+</html>

@@ -1,214 +1,25 @@
+<!-- _layouts/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Explore Photos – An Average Explorer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        html {
-            overflow-y: scroll;
-            scrollbar-gutter: stable;
-            height: 100%;
-        }
+    <!-- Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
-        body {
-            height: 100%;
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: #fff;
-            color: #111;
-            display: flex;
-            flex-direction: column;
-        }
+    <!-- JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
 
-        .gallery-container {
-            flex: 1;
-            display: flex;
-            min-height: 0;
-            /* Prevent flex container overflow shifting */
-        }
-
-
-        .sidebar {
-            width: 250px;
-            padding: 20px;
-            border-right: 1px solid #eee;
-            position: sticky;
-            /* Already present — keep it */
-            top: 80px;
-            /* Match navbar height */
-            height: calc(100vh - 80px);
-            /* Full height minus navbar */
-            overflow-y: auto;
-            background: #fafafa;
-            transition: transform 0.3s ease;
-            z-index: 10;
-            min-width: 250px;
-            /* Prevent shrinking */
-            box-sizing: border-box;
-            overflow-y: auto;
-            overflow-x: hidden;
-            /* Prevent horizontal scrollbar */
-        }
-
-
-        #sidebar-toggle {
-            position: fixed;
-            top: 70px;
-            /* or 80px depending on navbar height */
-            background: white;
-            border: 1px solid #ccc;
-            padding: 6px 12px;
-            font-size: 13px;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 1001;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            left: 20px;
-            transition: left 0.3s ease-in-out;
-        }
-
-        body.sidebar-visible #sidebar-toggle {
-            left: 270px;
-            /* Sidebar width + margin */
-        }
-
-        .sidebar:not(.collapsed)~#sidebar-toggle {
-            left: 270px;
-            /* Slightly offset from sidebar edge */
-        }
-
-
-
-        /* When sidebar is hidden, move button to left edge */
-        body.sidebar-hidden #sidebar-toggle {
-            left: 10px;
-        }
-
-
-
-        .sidebar.collapsed {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            position: absolute;
-            background: white;
-            height: 100vh;
-            z-index: 50;
-        }
-
-
-        .gallery-wrapper {
-            flex: 1;
-            padding: 40px 20px 20px 20px;
-            /* extra top padding */
-            min-width: 0;
-            min-height: 70vh;
-        }
-
-
-
-        .grid {
-            display: block;
-        }
-
-        .grid-sizer,
-        .grid-item {
-            width: 25%;
-        }
-
-        .grid-item {
-            margin-bottom: 5px;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 2px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            aspect-ratio: attr(data-aspect-ratio);
-        }
-
-        .grid-item:hover img {
-            transform: scale(1.02);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        @media (max-width: 1200px) {
-
-            .grid-sizer,
-            .grid-item {
-                width: 50%;
-            }
-
-            .sidebar-toggle {
-                left: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .grid-sizer,
-            .grid-item {
-                width: 100%;
-            }
-        }
-
-        .sidebar h3 {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 12px;
-            color: #111;
-        }
-
-        #tag-filter {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #333;
-        }
-
-        #tag-filter input[type="checkbox"] {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-            accent-color: #111;
-            vertical-align: middle;
-        }
-
-        #tag-filter label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: color 0.2s ease;
-            font-weight: 400;
-            /* Prevent bold on check */
-        }
-
-        #tag-filter input[type="checkbox"] {
-            margin-right: 8px;
-            accent-color: #111;
-            /* styled checkboxes if browser supports */
-        }
-
-        #tag-filter label:hover {
-            color: #000;
-        }
-    </style>
+    
+    
 </head>
 
 <body>
@@ -283,16 +94,17 @@
         }
     }
 </style>
-    <button id="sidebar-toggle" onclick="toggleSidebar()">☰ Show Filter</button>
-    <div class="gallery-container">
-        <!-- Sidebar Toggle Button -->
+    <div class="page-gallery">
+    <button id="sidebar-toggle">☰ Show Filter</button>
 
-        <!-- Sidebar -->
+    <div class="gallery-container">
         <aside class="sidebar collapsed" id="sidebar">
             <h3>Filter by Tag</h3>
             <button type="button" id="clear-filters" style="margin-bottom: 10px;">Clear Filters</button>
-
             <form id="tag-filter">
+                
+                
+
                 
                 
 
@@ -308,7 +120,27 @@
                 
                 <label>
                     <input type="checkbox" name="tag" value="portrait">
-                    Portrait (10)
+                    Portrait (16)
+                </label>
+                
+                
+                
+                
+                
+                
+                <label>
+                    <input type="checkbox" name="tag" value="outdoor">
+                    Outdoor (13)
+                </label>
+                
+                
+                
+                
+                
+                
+                <label>
+                    <input type="checkbox" name="tag" value="indoor">
+                    Indoor (5)
                 </label>
                 
                 
@@ -327,8 +159,8 @@
                 
                 
                 <label>
-                    <input type="checkbox" name="tag" value="messing_around">
-                    Messing_around (4)
+                    <input type="checkbox" name="tag" value="night">
+                    Night (4)
                 </label>
                 
                 
@@ -337,38 +169,8 @@
                 
                 
                 <label>
-                    <input type="checkbox" name="tag" value="low-light">
-                    Low-light (4)
-                </label>
-                
-                
-                
-                
-                
-                
-                <label>
-                    <input type="checkbox" name="tag" value="candle">
-                    Candle (4)
-                </label>
-                
-                
-                
-                
-                
-                
-                <label>
-                    <input type="checkbox" name="tag" value="a-descend-into-darkness">
-                    A-descend-into-darkness (4)
-                </label>
-                
-                
-                
-                
-                
-                
-                <label>
-                    <input type="checkbox" name="tag" value="skating">
-                    Skating (3)
+                    <input type="checkbox" name="tag" value="nature">
+                    Nature (4)
                 </label>
                 
                 
@@ -378,7 +180,27 @@
                 
                 <label>
                     <input type="checkbox" name="tag" value="macro">
-                    Macro (3)
+                    Macro (4)
+                </label>
+                
+                
+                
+                
+                
+                
+                <label>
+                    <input type="checkbox" name="tag" value="colorful">
+                    Colorful (4)
+                </label>
+                
+                
+                
+                
+                
+                
+                <label>
+                    <input type="checkbox" name="tag" value="sport">
+                    Sport (3)
                 </label>
                 
                 
@@ -397,8 +219,8 @@
                 
                 
                 <label>
-                    <input type="checkbox" name="tag" value="other">
-                    Other (1)
+                    <input type="checkbox" name="tag" value="plante">
+                    Plante (1)
                 </label>
                 
                 
@@ -407,8 +229,8 @@
                 
                 
                 <label>
-                    <input type="checkbox" name="tag" value="nature">
-                    Nature (1)
+                    <input type="checkbox" name="tag" value="minimalist">
+                    Minimalist (1)
                 </label>
                 
                 
@@ -417,8 +239,8 @@
                 
                 
                 <label>
-                    <input type="checkbox" name="tag" value="landscape">
-                    Landscape (1)
+                    <input type="checkbox" name="tag" value="insect">
+                    Insect (1)
                 </label>
                 
                 
@@ -427,28 +249,14 @@
                 
                 
                 <label>
-                    <input type="checkbox" name="tag" value="flower">
-                    Flower (1)
-                </label>
-                
-                
-                
-                
-                
-                
-                <label>
-                    <input type="checkbox" name="tag" value="bee">
-                    Bee (1)
+                    <input type="checkbox" name="tag" value="exterior">
+                    Exterior (1)
                 </label>
                 
                 
             </form>
         </aside>
 
-
-
-
-        <!-- Gallery -->
         <div class="gallery-wrapper">
             <div class="grid">
                 <div class="grid-sizer"></div>
@@ -458,8 +266,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="portrait candle low-light a-descend-into-darkness">
-
+                <div class="grid-item" data-tags="portrait night outdoor">
                     <a href="/assets/images/gallery/IMG_2321.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_2321.webp" type="image/webp" />
@@ -474,8 +281,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="portrait candle low-light a-descend-into-darkness">
-
+                <div class="grid-item" data-tags="portrait night outdoor">
                     <a href="/assets/images/gallery/IMG_2324.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_2324.webp" type="image/webp" />
@@ -490,8 +296,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="candle portrait low-light a-descend-into-darkness">
-
+                <div class="grid-item" data-tags="portrait night outdoor">
                     <a href="/assets/images/gallery/IMG_2349.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_2349.webp" type="image/webp" />
@@ -506,8 +311,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="candle portrait low-light a-descend-into-darkness">
-
+                <div class="grid-item" data-tags="portrait night outdoor">
                     <a href="/assets/images/gallery/IMG_2429.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_2429.webp" type="image/webp" />
@@ -522,8 +326,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="concert">
-
+                <div class="grid-item" data-tags="concert portrait colorful indoor">
                     <a href="/assets/images/gallery/IMG_3896-topaz-denoise-face.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_3896-topaz-denoise-face.webp" type="image/webp" />
@@ -538,8 +341,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="concert messing_around">
-
+                <div class="grid-item" data-tags="concert portrait indoor">
                     <a href="/assets/images/gallery/IMG_5010-topaz-denoise.jpg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5010-topaz-denoise.webp" type="image/webp" />
@@ -554,8 +356,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="concert messing_around">
-
+                <div class="grid-item" data-tags="concert portrait indoor colorful">
                     <a href="/assets/images/gallery/IMG_5164-topaz-denoise.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5164-topaz-denoise.webp" type="image/webp" />
@@ -570,8 +371,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="concert messing_around">
-
+                <div class="grid-item" data-tags="concert portrait indoor colorful">
                     <a href="/assets/images/gallery/IMG_5474-topaz-denoise-sharpen.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5474-topaz-denoise-sharpen.webp" type="image/webp" />
@@ -586,8 +386,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="concert messing_around">
-
+                <div class="grid-item" data-tags="concert portrait indoor colorful">
                     <a href="/assets/images/gallery/IMG_5505-topaz-denoise.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5505-topaz-denoise.webp" type="image/webp" />
@@ -602,8 +401,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="skating portrait">
-
+                <div class="grid-item" data-tags="sport portrait outdoor">
                     <a href="/assets/images/gallery/IMG_5641.jpg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5641.webp" type="image/webp" />
@@ -618,8 +416,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="skating">
-
+                <div class="grid-item" data-tags="sport portrait outdoor">
                     <a href="/assets/images/gallery/IMG_5656.jpg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5656.webp" type="image/webp" />
@@ -634,8 +431,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="skating portrait">
-
+                <div class="grid-item" data-tags="sport portrait outdoor">
                     <a href="/assets/images/gallery/IMG_5671.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5671.webp" type="image/webp" />
@@ -650,8 +446,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="portrait">
-
+                <div class="grid-item" data-tags="portrait outdoor">
                     <a href="/assets/images/gallery/IMG_5801.jpg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5801.webp" type="image/webp" />
@@ -666,8 +461,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="portrait">
-
+                <div class="grid-item" data-tags="portrait outdoor">
                     <a href="/assets/images/gallery/IMG_5827.jpg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5827.webp" type="image/webp" />
@@ -682,8 +476,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="portrait">
-
+                <div class="grid-item" data-tags="portrait outdoor">
                     <a href="/assets/images/gallery/IMG_5840.jpg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5840.webp" type="image/webp" />
@@ -698,8 +491,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="portrait">
-
+                <div class="grid-item" data-tags="portrait outdoor">
                     <a href="/assets/images/gallery/IMG_5892.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_5892.webp" type="image/webp" />
@@ -714,8 +506,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="macro plant">
-
+                <div class="grid-item" data-tags="plant macro nature outdoor">
                     <a href="/assets/images/gallery/IMG_6080.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_6080.webp" type="image/webp" />
@@ -730,8 +521,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="other">
-
+                <div class="grid-item" data-tags="macro minimalist">
                     <a href="/assets/images/gallery/IMG_6110.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_6110.webp" type="image/webp" />
@@ -746,8 +536,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="nature">
-
+                <div class="grid-item" data-tags="nature outdoor">
                     <a href="/assets/images/gallery/IMG_6136-4.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_6136-4.webp" type="image/webp" />
@@ -762,8 +551,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="macro plant flower">
-
+                <div class="grid-item" data-tags="plante nature macro exterior">
                     <a href="/assets/images/gallery/IMG_6467.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_6467.webp" type="image/webp" />
@@ -778,8 +566,7 @@
                 
                 
 
-                <div class="grid-item" data-tags="macro landscape bee">
-
+                <div class="grid-item" data-tags="macro nature insect plant">
                     <a href="/assets/images/gallery/IMG_6569-4-2.jpeg" class="glightbox" data-gallery="gallery">
                         <picture>
                             <source srcset="/assets/images/gallery_light/IMG_6569-4-2.webp" type="image/webp" />
@@ -792,95 +579,7 @@
             </div>
         </div>
     </div>
-
-
-    <script>
-        let msnry;
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const toggleBtn = document.getElementById('sidebar-toggle');
-            const isCollapsed = sidebar.classList.toggle('collapsed');
-
-            toggleBtn.textContent = isCollapsed ? '☰ Show Filter' : '☰ Hide Filter';
-            document.body.classList.toggle('sidebar-visible', !isCollapsed);
-
-            setTimeout(() => {
-                msnry.layout();
-            }, 350);
-        }
-
-        function updateURLFromFilters(activeTags) {
-            const params = new URLSearchParams(window.location.search);
-            if (activeTags.length > 0) {
-                params.set('tags', activeTags.join(','));
-            } else {
-                params.delete('tags');
-            }
-            const newUrl = window.location.pathname + '?' + params.toString();
-            history.replaceState(null, '', newUrl);
-        }
-
-        function applyTagFilter(activeTags) {
-            document.querySelectorAll(".grid-item").forEach(item => {
-                const tags = item.dataset.tags.toLowerCase().split(" ");
-                const show = activeTags.length === 0 || activeTags.every(tag => tags.includes(tag));
-                item.style.display = show ? "block" : "none";
-            });
-            msnry.layout();
-        }
-
-        function syncFiltersWithURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const tagParam = urlParams.get('tags');
-            const activeTags = tagParam ? tagParam.toLowerCase().split(',') : [];
-
-            // Set checkboxes based on URL
-            const checkboxes = document.querySelectorAll('#tag-filter input[type="checkbox"]');
-            checkboxes.forEach(cb => {
-                cb.checked = activeTags.includes(cb.value.toLowerCase());
-            });
-
-            applyTagFilter(activeTags);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const grid = document.querySelector(".grid");
-            msnry = new Masonry(grid, {
-                itemSelector: ".grid-item",
-                columnWidth: ".grid-sizer",
-                percentPosition: true,
-                gutter: 0
-            });
-
-            imagesLoaded(grid).on("progress", () => msnry.layout());
-            GLightbox({ selector: ".glightbox" });
-
-            const checkboxes = document.querySelectorAll('#tag-filter input[type="checkbox"]');
-            checkboxes.forEach(checkbox =>
-                checkbox.addEventListener("change", () => {
-                    const activeTags = Array.from(checkboxes)
-                        .filter(cb => cb.checked)
-                        .map(cb => cb.value.toLowerCase());
-
-                    updateURLFromFilters(activeTags);
-                    applyTagFilter(activeTags);
-                })
-            );
-
-            // On load: sync filters from URL
-            syncFiltersWithURL();
-        });
-
-        document.getElementById('clear-filters').addEventListener('click', () => {
-            document.querySelectorAll('#tag-filter input[type="checkbox"]').forEach(cb => cb.checked = false);
-            document.querySelectorAll('.grid-item').forEach(item => item.style.display = 'block');
-            msnry.layout();
-        });
-
-    </script>
-
-
+</div>
 </body>
 
 </html>

@@ -1,148 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: base
+---
 
-<head>
-    <meta charset="UTF-8">
-    <title>{{ page.title }} – An Average Explorer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<section class="project-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}
+    <p>{{ page.description }}</p>
+    {% endif %}
+</section>
 
-    <!-- Fonts and libraries -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: #fff;
-            color: #111;
-        }
-
-        .project-header {
-            max-width: 900px;
-            margin: 60px auto 20px;
-            padding: 0 20px;
-            text-align: left;
-        }
-
-        .project-header h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .project-header p {
-            font-size: 1.1rem;
-            color: #444;
-            line-height: 1.6;
-        }
-
-        .gallery-wrapper {
-            max-width: 2000px;
-            margin: 40px auto;
-            padding: 10px;
-        }
-
-        .grid {
-            display: block;
-            box-sizing: border-box;
-        }
-
-        .grid-sizer,
-        .grid-item {
-            width: 25%;
-        }
-
-        .grid-item {
-            margin-bottom: 5px;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 2px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .grid-item:hover img {
-            transform: scale(1.02);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        @media (max-width: 1200px) {
-
-            .grid-sizer,
-            .grid-item {
-                width: 50%;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .grid-sizer,
-            .grid-item {
-                width: 100%;
-            }
-
-            .project-header {
-                text-align: center;
-                padding: 0 20px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    {% include navbar.html %}
-
-    <section class="project-header">
-        <h1>{{ page.title }}</h1>
-        {% if page.description %}
-        <p>{{ page.description }}</p>
-        {% endif %}
-    </section>
-
-    <div class="gallery-wrapper">
-        <div class="grid">
-            <div class="grid-sizer"></div>
-            {% assign project_name = page.title %}
-            {% for image in site.image_info %}
-            {% if image.project == project_name %}
-            {% assign webp_name = image.filename | split: '.' | first | append: '.webp' %}
-            {% assign light_src = webp_name | prepend: '/assets/images/gallery_light/' %}
-            {% assign full_src = image.filename | prepend: '/assets/images/gallery/' %}
-            <div class="grid-item">
-                <a href="{{ full_src }}" class="glightbox" data-gallery="project">
-                    <img src="{{ light_src }}" alt="{{ image.description | default: image.title }}" loading="lazy"
-                        decoding="async">
-                </a>
-            </div>
-            {% endif %}
-            {% endfor %}
+<div class="gallery-wrapper">
+    <div class="grid">
+        <div class="grid-sizer"></div>
+        {% assign project_name = page.title %}
+        {% for image in site.image_info %}
+        {% if image.project == project_name %}
+        {% assign webp_name = image.filename | split: '.' | first | append: '.webp' %}
+        {% assign light_src = webp_name | prepend: '/assets/images/gallery_light/' %}
+        {% assign full_src = image.filename | prepend: '/assets/images/gallery/' %}
+        <div class="grid-item">
+            <a href="{{ full_src }}" class="glightbox" data-gallery="project">
+                <img src="{{ light_src }}" alt="{{ image.description | default: image.title }}" loading="lazy"
+                    decoding="async">
+            </a>
         </div>
+        {% endif %}
+        {% endfor %}
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            GLightbox({ selector: '.glightbox' });
-
-            const grid = document.querySelector('.grid');
-            imagesLoaded(grid, function () {
-                new Masonry(grid, {
-                    itemSelector: '.grid-item',
-                    columnWidth: '.grid-sizer',
-                    percentPosition: true,
-                    gutter: 0
-                });
-            });
-        });
-    </script>
-</body>
-
-</html>
+</div>

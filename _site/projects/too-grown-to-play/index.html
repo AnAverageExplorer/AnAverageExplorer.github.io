@@ -1,3 +1,4 @@
+<!-- _layouts/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,96 +7,19 @@
     <title>Too Grown to Play – An Average Explorer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts and libraries -->
+    <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: #fff;
-            color: #111;
-        }
+    <!-- JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
 
-        .project-header {
-            max-width: 900px;
-            margin: 60px auto 20px;
-            padding: 0 20px;
-            text-align: left;
-        }
-
-        .project-header h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .project-header p {
-            font-size: 1.1rem;
-            color: #444;
-            line-height: 1.6;
-        }
-
-        .gallery-wrapper {
-            max-width: 2000px;
-            margin: 40px auto;
-            padding: 10px;
-        }
-
-        .grid {
-            display: block;
-            box-sizing: border-box;
-        }
-
-        .grid-sizer,
-        .grid-item {
-            width: 25%;
-        }
-
-        .grid-item {
-            margin-bottom: 5px;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 2px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .grid-item:hover img {
-            transform: scale(1.02);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        @media (max-width: 1200px) {
-
-            .grid-sizer,
-            .grid-item {
-                width: 50%;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .grid-sizer,
-            .grid-item {
-                width: 100%;
-            }
-
-            .project-header {
-                text-align: center;
-                padding: 0 20px;
-            }
-        }
-    </style>
+    
+    
 </head>
 
 <body>
@@ -170,119 +94,102 @@
         }
     }
 </style>
-
     <section class="project-header">
-        <h1>Too Grown to Play</h1>
-        
-        <p>Too Grown to Play is a collection of portraits that explore the theme of growing up and the challenges it brings. The series features a range of subjects, from children to adults, and captures their unique personalities and experiences.</p>
-        
-    </section>
+    <h1>Too Grown to Play</h1>
+    
+    <p>Too Grown to Play is a collection of portraits that explore the theme of growing up and the challenges it brings. The series features a range of subjects, from children to adults, and captures their unique personalities and experiences.</p>
+    
+</section>
 
-    <div class="gallery-wrapper">
-        <div class="grid">
-            <div class="grid-sizer"></div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <div class="grid-item">
-                <a href="/assets/images/gallery/IMG_5801.jpg" class="glightbox" data-gallery="project">
-                    <img src="/assets/images/gallery_light/IMG_5801.webp" alt="Img_5801" loading="lazy"
-                        decoding="async">
-                </a>
-            </div>
-            
-            
-            
-            
-            
-            
-            <div class="grid-item">
-                <a href="/assets/images/gallery/IMG_5827.jpg" class="glightbox" data-gallery="project">
-                    <img src="/assets/images/gallery_light/IMG_5827.webp" alt="Img_5827" loading="lazy"
-                        decoding="async">
-                </a>
-            </div>
-            
-            
-            
-            
-            
-            
-            <div class="grid-item">
-                <a href="/assets/images/gallery/IMG_5840.jpg" class="glightbox" data-gallery="project">
-                    <img src="/assets/images/gallery_light/IMG_5840.webp" alt="Img_5840" loading="lazy"
-                        decoding="async">
-                </a>
-            </div>
-            
-            
-            
-            
-            
-            
-            <div class="grid-item">
-                <a href="/assets/images/gallery/IMG_5892.jpeg" class="glightbox" data-gallery="project">
-                    <img src="/assets/images/gallery_light/IMG_5892.webp" alt="Img_5892" loading="lazy"
-                        decoding="async">
-                </a>
-            </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+<div class="gallery-wrapper">
+    <div class="grid">
+        <div class="grid-sizer"></div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="grid-item">
+            <a href="/assets/images/gallery/IMG_5801.jpg" class="glightbox" data-gallery="project">
+                <img src="/assets/images/gallery_light/IMG_5801.webp" alt="Img_5801" loading="lazy"
+                    decoding="async">
+            </a>
         </div>
+        
+        
+        
+        
+        
+        
+        <div class="grid-item">
+            <a href="/assets/images/gallery/IMG_5827.jpg" class="glightbox" data-gallery="project">
+                <img src="/assets/images/gallery_light/IMG_5827.webp" alt="Img_5827" loading="lazy"
+                    decoding="async">
+            </a>
+        </div>
+        
+        
+        
+        
+        
+        
+        <div class="grid-item">
+            <a href="/assets/images/gallery/IMG_5840.jpg" class="glightbox" data-gallery="project">
+                <img src="/assets/images/gallery_light/IMG_5840.webp" alt="Img_5840" loading="lazy"
+                    decoding="async">
+            </a>
+        </div>
+        
+        
+        
+        
+        
+        
+        <div class="grid-item">
+            <a href="/assets/images/gallery/IMG_5892.jpeg" class="glightbox" data-gallery="project">
+                <img src="/assets/images/gallery_light/IMG_5892.webp" alt="Img_5892" loading="lazy"
+                    decoding="async">
+            </a>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            GLightbox({ selector: '.glightbox' });
-
-            const grid = document.querySelector('.grid');
-            imagesLoaded(grid, function () {
-                new Masonry(grid, {
-                    itemSelector: '.grid-item',
-                    columnWidth: '.grid-sizer',
-                    percentPosition: true,
-                    gutter: 0
-                });
-            });
-        });
-    </script>
+</div>
 </body>
 
 </html>
