@@ -32,18 +32,86 @@
     <div class="navbar">
     <h1><a href="/">An Average Explorer</a></h1>
     <div>
-        <a href="#">Projects</a>
-        <a href="/gallery/">Gallery</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <nav>
+            <a href="#">Projects</a>
+            <a href="/gallery/">Gallery</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
     </div>
 </div>
+
+<style>
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        padding: var(--space-md) var(--space-lg);
+        background-color: var(--color-surface);
+        border-bottom: 2px solid var(--color-border);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .navbar h1 {
+        font-size: 1.375rem;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .navbar h1 a {
+        color: var(--color-text);
+        text-decoration: none;
+    }
+
+    .navbar a {
+        color: var(--color-text);
+        text-decoration: none;
+        margin-left: var(--space-sm);
+        position: relative;
+        cursor: pointer;
+        transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .navbar a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0%;
+        height: 1px;
+        background-color: var(--color-hover);
+        transition: width 0.3s ease;
+    }
+
+    .navbar a:hover::after {
+        width: 100%;
+        color: var(--color-hover);
+    }
+
+    .navbar a:hover {
+        color: var(--color-hover);
+    }
+
+
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-md);
+
+        }
+    }
+</style>
     <section class="hero-container">
     <img src="/assets/images/gallery_light/IMG_6569-4-2.webp" alt="Hero image" loading="eager" decoding="async">
     <div class="hero-overlay"></div>
     <div class="hero-text">
         <p>
-            Hi, my name is Anthony, a digital imaging engineer, currently pursuing a PhD in urban street lighting,<br>
+            Hi, my name is Anthony, a digital imaging engineer, currently pursuing a PhD in urban street
+            lighting,<br>
             but in my spare time, I'm just <strong>An Average Explorer</strong>, amateur photographer.
         </p>
         <a href="#gallery" class="cta">Explore My Photos ↓</a>
