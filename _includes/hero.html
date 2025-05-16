@@ -10,3 +10,139 @@
         <a href="#gallery" class="cta">Explore My Photos ↓</a>
     </div>
 </section>
+
+<style>
+    .section {
+        padding: 0 var(--space-md);
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .section--narrow {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .hero-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+    }
+
+
+    .hero-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        filter: brightness(0.65);
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+
+    .hero-text {
+        position: absolute;
+        top: 50%;
+        left: 60px;
+        transform: translateY(-50%);
+        max-width: 600px;
+        color: white;
+        text-align: left;
+        z-index: 2;
+        padding: var(--space-lg);
+    }
+
+    .hero-text p {
+        font-size: 1.25rem;
+        line-height: 1.6;
+    }
+
+    .cta {
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 1rem;
+        background: white;
+        color: #111;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .cta:hover {
+        background: #111;
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+    }
+
+    @media (max-width: 768px) {
+        .hero-container {
+            height: 100vh;
+            position: relative;
+            display: block;
+            /* back to block to avoid layout shift */
+        }
+
+        .hero-container img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.65);
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            color: white;
+            text-align: center;
+            max-width: 100vw;
+            width: 100%;
+            padding: 0 var(--space-lg);
+            box-sizing: border-box;
+        }
+
+
+        .hero-text p {
+            font-size: var(--font-body);
+            line-height: 1.5;
+            word-break: break-word;
+
+        }
+
+
+        .cta {
+            margin-top: var(--space-sm);
+            font-size: var(--font-small);
+            padding: 0.75rem 1.25rem;
+            white-space: nowrap;
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+</style>
