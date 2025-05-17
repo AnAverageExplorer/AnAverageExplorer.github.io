@@ -33,6 +33,22 @@
 <body>
     {% include navbar.html %}
     {{ content }}
+
+    {% include footer.html %}
+    <button id="scrollToTop" aria-label="Scroll to top">↑</button>
+
+    <script>
+        const scrollBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', () => {
+            scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
 </body>
 
 </html>
